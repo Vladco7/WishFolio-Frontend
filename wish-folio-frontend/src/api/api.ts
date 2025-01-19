@@ -4,6 +4,9 @@ import router from '../router'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
+  headers:{
+    "Access-Control-Allow-Origin": "*",
+  },
 })
 
 // Add a request interceptor to automatically add the token to all requests
@@ -27,6 +30,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       // Remove token and redirect to login page
       tokenService.removeToken()
+      console.error('Unauthorized')
       router.push({ name: 'login' })
     }
     return Promise.reject(error)
