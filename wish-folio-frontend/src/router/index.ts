@@ -28,11 +28,15 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = tokenService.getToken()
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
-  if (requiresAuth && !token) {
-    next({ name: 'login' })
+  if (requiresAuth) {
+    if (tokenService.isTokenExpired()) {
+      tokenService.removeToken() // Удаляем просроченный токен
+      next({ name: 'login' })
+    } else {
+      next()
+    }
   } else {
     next()
   }
