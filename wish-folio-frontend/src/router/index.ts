@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
 import { tokenService } from '@/services/tokenService'
 
 const router = createRouter({
@@ -8,9 +9,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
-      meta: { requiresAuth: true }
+      component: MainLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: HomeView,
+        },
+      ]
     },
     {
       path: '/login',
