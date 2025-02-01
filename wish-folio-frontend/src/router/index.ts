@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { tokenService } from '@/services/tokenService'
+import { AppRoutesNames, AppRoutesPaths } from './AppRoutes'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,14 +15,14 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'home',
+          name: AppRoutesNames.HOME,
           component: HomeView,
         },
       ]
     },
     {
-      path: '/login',
-      name: 'login',
+      path: AppRoutesPaths[AppRoutesNames.LOGIN],
+      name: AppRoutesNames.LOGIN,
       component: LoginView,
     },
   ],
