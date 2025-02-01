@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, type FormSubmitEvent } from '@primevue/forms'
-import { Button, Card, InputText, Password } from 'primevue'
+import { Button, Card, InputText, Message, Password } from 'primevue'
 import FlexComponent from '../UI/FlexComponent/FlexComponent.vue';
 import TypographyComponent from '../UI/TypographyComponent/TypographyComponent.vue';
 import {TypographyVariant} from '../UI/TypographyComponent/types';
@@ -9,11 +9,18 @@ import tokenService from '@/services/tokenService';
 import router from '@/router';
 import { AppRoutesNames } from '@/router/AppRoutes';
 import { ref } from 'vue';
+import { zodResolver } from '@primevue/forms/resolvers/zod';
+import { z } from 'zod';
 
 const initialValues = ref({
   email: '',
   password: ''
 });
+
+const resolver = zodResolver(z.object({
+  email: z.string().email({message: 'Неверная электронная почта'}),
+  password: z.string().min(1, {message: 'Пароль должен быть не менее 1 символа'})
+}))
 
 const onSubmit = async (event: FormSubmitEvent) => {
   console.log(event);
@@ -30,13 +37,19 @@ const onSubmit = async (event: FormSubmitEvent) => {
   <div class="container">
     <Card>
         <template #content>
-        <Form @submit="onSubmit" :initial-values="initialValues">
+        <Form v-slot="$form" @submit="onSubmit" :initial-values="initialValues" :resolver="resolver" >
             <FlexComponent :direction="'column'" :gap="'16px'">
                 <FlexComponent :align="'center'" :justify="'center'" >
                 <TypographyComponent :variant="TypographyVariant.h2">Вход</TypographyComponent>
             </FlexComponent>
                 <InputText name="email" type="text" placeholder="E-mail" />
+                <Message v-if="$form.email?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.email.error.message }}
+                </Message>
                 <Password name="password" :feedback="false" placeholder="Пароль" toggleMask />
+                <Message v-if="$form.password?.invalid" severity="error" size="small" variant="simple">
+                  {{ $form.password.error.message }}
+                </Message>
                 <Button type="submit">Войти</Button>
             </FlexComponent>
         </Form>
