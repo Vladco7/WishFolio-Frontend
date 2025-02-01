@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { api } from '@/api/api';
+import LoginPage from '@/components/LoginPage/LoginPage.vue';
 
-const onClick = async () =>{
-    const response = await api.get('/friends')
-    console.log(response)
-}
 </script>
 
 <template>
-    <div>Login</div>
-    <button @click="onClick">Login</button>
+    <LoginPage />
 </template>
