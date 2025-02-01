@@ -4,6 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import { tokenService } from '@/services/tokenService'
 import { AppRoutesNames, AppRoutesPaths } from './AppRoutes'
+import RegisterView from '@/views/RegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: AppRoutesPaths[AppRoutesNames.LOGIN],
       name: AppRoutesNames.LOGIN,
       component: LoginView,
+    },
+    {
+      path: AppRoutesPaths[AppRoutesNames.REGISTER],
+      name: AppRoutesNames.REGISTER,
+      component: RegisterView,
     },
   ],
 })
