@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { tokenService } from '../services/tokenService'
 import router from '../router'
 import { useErrorStore } from '@/stores/error/error'
+import { useTokenStore } from '@/stores/token/token'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -13,7 +13,7 @@ export const api = axios.create({
 // Add a request interceptor to automatically add the token to all requests
 api.interceptors.request.use(
   (config) => {
-    const token = tokenService.getToken()
+    const { token } = useTokenStore()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -29,9 +29,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const errorStore = useErrorStore()
+    const { removeToken } = useTokenStore()
     if (error.response?.status === 401) {
-      // Remove token and redirect to login page
-      tokenService.removeToken()
+      removeToken()
       console.error('Unauthorized')
       router.push({ name: 'login' })
     } else {

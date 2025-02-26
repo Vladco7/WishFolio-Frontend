@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
-import { tokenService } from '@/services/tokenService'
 import { AppRoutesNames, AppRoutesPaths } from './AppRoutes'
 import RegisterView from '@/views/RegisterView.vue'
+import { useTokenStore } from '@/stores/token/token'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +19,7 @@ const router = createRouter({
           name: AppRoutesNames.HOME,
           component: HomeView,
         },
-      ]
+      ],
     },
     {
       path: AppRoutesPaths[AppRoutesNames.LOGIN],
@@ -35,11 +35,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const { isTokenExpired, removeToken } = useTokenStore()
   if (requiresAuth) {
-    if (tokenService.isTokenExpired()) {
-      tokenService.removeToken() // Удаляем просроченный токен
+    if (isTokenExpired) {
+      removeToken()
       next({ name: 'login' })
     } else {
       next()

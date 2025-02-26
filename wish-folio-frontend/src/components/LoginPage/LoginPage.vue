@@ -5,13 +5,15 @@ import FlexComponent from '../UI/FlexComponent/FlexComponent.vue'
 import TypographyComponent from '../UI/TypographyComponent/TypographyComponent.vue'
 import { TypographyVariant } from '../UI/TypographyComponent/types'
 import { login } from '@/api/authorization/login'
-import tokenService from '@/services/tokenService'
 import router from '@/router'
 import { AppRoutesNames } from '@/router/AppRoutes'
 import { ref } from 'vue'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { z } from 'zod'
 import AuthorizationContainer from '../UI/AuthorizationContainer/AuthorizationContainer.vue'
+import { getProfile } from '@/api/profile/getProfile'
+import { useUserStore } from '@/stores/user/user'
+import { useTokenStore } from '@/stores/token/token'
 
 const initialValues = ref({
   email: '',
@@ -25,6 +27,10 @@ const resolver = zodResolver(
   }),
 )
 
+const { setToken } = useTokenStore()
+
+const { setUser } = useUserStore()
+
 const onSubmit = async (event: FormSubmitEvent) => {
   console.log(event)
   if (!event.valid) return
@@ -33,7 +39,9 @@ const onSubmit = async (event: FormSubmitEvent) => {
     password: event.states.password.value,
   })
   if (!response) return
-  tokenService.setToken(response.value)
+  setToken(response.value)
+  const profile = await getProfile()
+  setUser(profile)
   router.push({ name: AppRoutesNames.HOME })
 }
 </script>
