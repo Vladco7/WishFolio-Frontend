@@ -5,6 +5,7 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import { AppRoutesNames, AppRoutesPaths } from './AppRoutes'
 import RegisterView from '@/views/RegisterView.vue'
 import { useTokenStore } from '@/stores/token/token'
+import FriendsView from '@/views/FriendsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,11 @@ const router = createRouter({
           path: '',
           name: AppRoutesNames.HOME,
           component: HomeView,
+        },
+        {
+          path: AppRoutesPaths[AppRoutesNames.FRIENDS],
+          name: AppRoutesNames.FRIENDS,
+          component: FriendsView,
         },
       ],
     },
