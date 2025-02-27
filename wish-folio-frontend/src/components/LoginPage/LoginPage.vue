@@ -32,7 +32,6 @@ const { setToken } = useTokenStore()
 const { setUser } = useUserStore()
 
 const onSubmit = async (event: FormSubmitEvent) => {
-  console.log(event)
   if (!event.valid) return
   const response = await login({
     email: event.states.email.value,
