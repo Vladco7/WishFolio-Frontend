@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import MainLayoutHeader from './MainLayoutHeader/MainLayoutHeader.vue'
 </script>
 
 <template>
   <div class="main-layout">
-    <header>
-    </header>
+    <MainLayoutHeader />
 
     <main>
       <RouterView />
     </main>
 
-    <footer>
-    </footer>
+    <footer></footer>
   </div>
 </template>
 
@@ -24,5 +23,6 @@
 
 main {
   flex: 1;
+  margin-top: 86px;
 }
 </style>

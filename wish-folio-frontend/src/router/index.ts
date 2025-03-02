@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
-import MainLayout from '@/layouts/MainLayout.vue'
+import MainLayout from '@/layouts/MainLayout/MainLayout.vue'
 import { AppRoutesNames, AppRoutesPaths } from './AppRoutes'
 import RegisterView from '@/views/RegisterView.vue'
 import { useTokenStore } from '@/stores/token/token'
