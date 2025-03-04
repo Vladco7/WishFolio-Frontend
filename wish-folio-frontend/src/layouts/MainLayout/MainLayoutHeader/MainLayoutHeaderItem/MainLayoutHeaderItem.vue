@@ -7,7 +7,12 @@ const props = defineProps<MainLayoutHeaderItemProps>()
 </script>
 
 <template>
-  <router-link v-if="props.item.route" :to="{ name: props.item.route }" :class="'routeItem'">
+  <RouterLink
+    v-if="props.item.route"
+    :to="{ name: props.item.route }"
+    :class="'route-item'"
+    activeClass="active-route"
+  >
     <div style="padding: 0.5rem">
       <span :class="props.item.icon" />
       <TypographyComponent
@@ -16,11 +21,14 @@ const props = defineProps<MainLayoutHeaderItemProps>()
         >{{ props.item.label }}</TypographyComponent
       >
     </div>
-  </router-link>
+  </RouterLink>
 </template>
 
 <style scoped>
-.routeItem {
+.route-item {
   text-decoration: none !important;
+}
+.active-route {
+  color: var(--p-primary-color);
 }
 </style>
