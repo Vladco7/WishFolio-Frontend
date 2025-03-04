@@ -48,7 +48,7 @@ const { user } = storeToRefs(userStore)
           <MainLayoutHeaderItem :item="item" />
         </template>
         <template #end>
-          <FlexComponent gap="16px">
+          <FlexComponent gap="16px" :align="'center'">
             <ThemeToggler />
             <Avatar :label="user?.name?.slice(0, 1)" shape="circle" />
           </FlexComponent>
