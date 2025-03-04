@@ -8,6 +8,8 @@ import type { MenuItem } from 'primevue/menuitem'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import MainLayoutHeaderItem from './MainLayoutHeaderItem/MainLayoutHeaderItem.vue'
+import ThemeToggler from '@/components/UI/ThemeToggler/ThemeToggler.vue'
+import FlexComponent from '@/components/UI/FlexComponent/FlexComponent.vue'
 
 const items = ref<MenuItem[]>([
   {
@@ -46,7 +48,10 @@ const { user } = storeToRefs(userStore)
           <MainLayoutHeaderItem :item="item" />
         </template>
         <template #end>
-          <Avatar :label="user?.name?.slice(0, 1)" shape="circle" />
+          <FlexComponent gap="16px">
+            <ThemeToggler />
+            <Avatar :label="user?.name?.slice(0, 1)" shape="circle" />
+          </FlexComponent>
         </template>
       </MegaMenu>
     </div>

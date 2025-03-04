@@ -6,6 +6,7 @@ import { useTokenStore } from './stores/token/token'
 import { useUserStore } from './stores/user/user'
 import { RouterView } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { themeService } from './services/themeService'
 
 const { token } = storeToRefs(useTokenStore())
 const { setUser } = useUserStore()
@@ -23,6 +24,8 @@ watch(token, () => {
   if (!token.value) return
   getUser()
 })
+
+themeService.keepTheme()
 </script>
 
 <template>
