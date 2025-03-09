@@ -10,6 +10,9 @@ const props = defineProps<GridComponentProps>()
     :style="{
       display: 'grid',
       gridTemplateColumns: props.columns,
+      rowGap: props.rowGap,
+      columnGap: props.columnGap,
+      ...props.style,
     }"
   >
     <slot></slot>

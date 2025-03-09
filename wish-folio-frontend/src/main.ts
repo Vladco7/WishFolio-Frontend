@@ -1,6 +1,7 @@
 import './assets/main.css'
 import Aura from '@primevue/themes/aura'
 import ToastService from 'primevue/toastservice'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -14,6 +15,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(VueQueryPlugin)
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
