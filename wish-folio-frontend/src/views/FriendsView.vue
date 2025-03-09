@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import FriendsPage from '@/components/FriendsPage/FriendsPage.vue'
+</script>
 
 <template>
-  <div>Friends</div>
+  <FriendsPage />
 </template>
 
 <style scoped></style>
