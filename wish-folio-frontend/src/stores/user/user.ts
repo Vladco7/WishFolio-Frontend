@@ -7,5 +7,9 @@ export const useUserStore = defineStore('user', () => {
   function setUser(value: User | null) {
     user.value = value
   }
-  return { user, setUser }
+
+  function resetUser() {
+    user.value = null
+  }
+  return { user, setUser, resetUser }
 })
