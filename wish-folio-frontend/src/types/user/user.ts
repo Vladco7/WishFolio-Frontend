@@ -4,3 +4,8 @@ export interface User {
   name?: string
   age?: number
 }
+
+export interface UserSearchItem {
+  id: string
+  name: string
+}
