@@ -1,8 +1,11 @@
-import type { RequestWithPagination } from '@/types/pagination/pagination'
+import type { ListFetchFn } from '@/types/list/list'
 import { api } from '../api'
-import type { UsersSearchResponse } from './types'
+import type { UsersSearchRequest, UsersSearchResponse } from './types'
+import type { User } from '@/types/user/user'
 
-export const getUsers = async (params: RequestWithPagination): Promise<UsersSearchResponse> => {
+export const getUsers: ListFetchFn<User, UsersSearchRequest> = async (
+  params: UsersSearchRequest,
+): Promise<UsersSearchResponse> => {
   const response = await api.get('/users/search', {
     params,
   })

@@ -5,12 +5,15 @@ export interface Pagination {
   totalPagesCount: number
 }
 
-export interface ResponseWithPagination<T> extends Pagination {
+export interface PaginationItemBase {
+  id: string
+}
+
+export interface ResponseWithPagination<T extends PaginationItemBase> extends Pagination {
   items: T[]
 }
 
-export interface RequestWithPagination {
-  searchName: string
+export interface RequestPagination {
   orderBy?: string
   pageNumber?: number
   pageSize?: number
