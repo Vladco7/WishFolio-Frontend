@@ -16,6 +16,7 @@
     "@primevue/forms": "^4.2.5",
     "@primevue/themes": "^4.2.5",
     "@tanstack/vue-query": "^5.67.2",
+    "@vueuse/core": "^13.0.0",
     "axios": "^1.7.9",
     "pinia": "^2.3.0",
     "primeicons": "^7.0.0",
