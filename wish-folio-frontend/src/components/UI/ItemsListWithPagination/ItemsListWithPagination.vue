@@ -16,7 +16,7 @@ const props = defineProps<{
 const pagination = ref<RequestPagination | undefined>(props.pagination)
 
 const { data, isLoading } = useQuery({
-  queryKey: ['items', pagination],
+  queryKey: ['items', pagination, props],
   queryFn: async () => props.fetchFn({ ...pagination.value, ...props.filters }),
 })
 
