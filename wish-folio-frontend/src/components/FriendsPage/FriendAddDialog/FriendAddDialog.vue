@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { getUsers } from '@/api/user/getUsers'
+import FlexComponent from '@/components/UI/FlexComponent/FlexComponent.vue'
 import ItemsListWithPagination from '@/components/UI/ItemsListWithPagination/ItemsListWithPagination.vue'
-import { Dialog } from 'primevue'
+import { TypographyVariant } from '@/components/UI/TypographyComponent/types'
+import TypographyComponent from '@/components/UI/TypographyComponent/TypographyComponent.vue'
+import { Avatar, Dialog } from 'primevue'
 
 const props = defineProps({
   visible: Boolean,
@@ -23,11 +26,14 @@ const updateVisible = () => {
     :style="{ width: '25rem' }"
     dismissableMask
   >
-    <ItemsListWithPagination :fetchFn="getUsers" :pagination="{ pageNumber: 1, pageSize: 1 }">
+    <ItemsListWithPagination :fetchFn="getUsers" :pagination="{ pageNumber: 1, pageSize: 2 }">
       <template #item="{ item }">
-        <div>
-          {{ item.name }}
-        </div>
+        <FlexComponent gap="8px" align="center">
+          <Avatar :label="item.name?.slice(0, 1)" shape="circle" size="normal" />
+          <TypographyComponent :variant="TypographyVariant.body1">{{
+            item.name
+          }}</TypographyComponent>
+        </FlexComponent>
       </template>
     </ItemsListWithPagination>
   </Dialog>

@@ -15,25 +15,26 @@ const props = defineProps<{
 
 const pagination = ref<RequestPagination | undefined>(props.pagination)
 
-const { data, isFetching } = useQuery({
+const { data, isLoading } = useQuery({
   queryKey: ['items', pagination],
   queryFn: async () => props.fetchFn({ ...pagination.value, ...props.filters }),
 })
 
 const onPageChange = (event: PageState) => {
+  console.log(event)
   pagination.value = { ...pagination.value, pageNumber: event.page + 1 }
 }
 </script>
 <template>
-  <FlexComponent :direction="'column'" v-if="isFetching">
-    <Skeleton v-for="item in 10" :key="item"></Skeleton>
+  <FlexComponent :direction="'column'" gap="16px" v-show="isLoading">
+    <Skeleton v-for="item in 5" :key="item" height="20px"></Skeleton>
   </FlexComponent>
-  <FlexComponent :direction="'column'" v-else>
-    <div>
+  <FlexComponent :direction="'column'" gap="16px" v-show="!isLoading">
+    <FlexComponent :direction="'column'" gap="16px">
       <slot v-for="item in data?.items" :key="item.id" :item="item" name="item"></slot>
-    </div>
+    </FlexComponent>
     <Paginator
-      :first="data?.currentPageNumber ? data.currentPageNumber - 1 : 0"
+      :first="(props.pagination?.pageNumber || 1) - 1"
       :totalRecords="data?.totalItemsCount"
       :rows="props.pagination?.pageSize"
       @page="onPageChange"
